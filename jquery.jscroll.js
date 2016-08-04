@@ -59,8 +59,8 @@
 
             // Wrap inner content, if it isn't already
             _wrapInnerContent = function() {
-                if (!$e.find('.jscroll-inner').length) {
-                    $e.contents().wrapAll('<div class="jscroll-inner" />');
+                if (!$e.find('tbody').length) {
+                    $e.contents().wrapAll('<tbody/>');
                 }
             },
 
@@ -70,7 +70,7 @@
                 if (_options.pagingSelector) {
                     $next.closest(_options.pagingSelector).hide();
                 } else {
-                    $parent = $next.parent().not('.jscroll-inner,.jscroll-added').addClass('jscroll-next-parent').hide();
+                    $parent = $next.parent().not('tbody,.jscroll-added').addClass('jscroll-next-parent').hide();
                     if (!$parent.length) {
                         $next.wrap('<div class="jscroll-next-parent" />').parent().hide();
                     }
@@ -81,15 +81,15 @@
             _destroy = function() {
                 return _$scroll.unbind('.jscroll')
                     .removeData('jscroll')
-                    .find('.jscroll-inner').children().unwrap()
-                    .filter('.jscroll-added').children().unwrap();
+                    .find('tbody').children().unwrap()
+                    .filter('tbody').children().unwrap();
             },
 
             // Observe the scroll event for when to trigger the next load
             _observe = function() {
                 if ($e.is(':visible')) {
                     _wrapInnerContent();
-                    var $inner = $e.find('div.jscroll-inner').first(),
+                    var $inner = $e.find('tbody').first(),
                         data = $e.data('jscroll'),
                         borderTopWidth = parseInt($e.css('borderTopWidth'), 10),
                         borderTopWidthInt = isNaN(borderTopWidth) ? 0 : borderTopWidth,
@@ -150,7 +150,7 @@
 
             // Load the next set of content, if available
             _load = function() {
-                var $inner = $e.find('div.jscroll-inner').first(),
+                var $inner = $e.find('tbody').first(),
                     data = $e.data('jscroll');
 
                 data.waiting = true;
